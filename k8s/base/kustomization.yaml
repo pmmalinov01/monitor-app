@@ -1,0 +1,7 @@
+commonLabels:
+  app: monitor
+
+resources:
+- deployment.yaml
+- configMap.yaml
+- namespace.yaml

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoringapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: app
+  template:
+    metadata:
+      labels:
+        deployment: app
+    spec:
+      containers:
+      - name: the-container
+        image: busybox
+        ports:
+        - containerPort: 8001
+        env:
+        - name: monitoringInterval
+          valueFrom:
+            configMapKeyRef:
+              name: the-map
+              key: monitoringInterval

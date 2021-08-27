@@ -1,0 +1,13 @@
+namePrefix: production-
+commonLabels:
+  variant: production
+  org: learningnew
+commonAnnotations:
+  note: Hello, I am production!
+bases:
+- ../../base
+patchesStrategicMerge:
+- deployment.yaml
+- config.yaml
+- namespace.yaml
+namespace: production-monitoring
