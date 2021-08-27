@@ -6,7 +6,7 @@ VERSION_FILE=VERSION
 C_VERSION=`cat $(VERSION_FILE)`
 SERVICE_PORT?=8001
 
-.PHONY: all test build 
+.PHONY: all test build kind-create kind-deploy-app k8s-kind-deploy-work
 
 all: help
 
@@ -27,12 +27,13 @@ docker-build: ## Use the dockerfile to build the container
 
 docker-lint: ## Use Hadolint to check for common errors
 	docker run --rm -i  hadolint/hadolint hadolint  - < ./Dockerfile 
+
 kind-create: 
 	kind create cluster
 
+kind-load-image:
+	kind load docker-image app:1.0.1  
 kind-deploy-app:
 	kubectl kustomize k8s/overlay/demo 
 	
-k8s-kind-deploy-work:
-	kind-create
-	kind-deploylfconfig.me.app
+k8s-kind-deploy-work: kind-create kind-deploy-app
